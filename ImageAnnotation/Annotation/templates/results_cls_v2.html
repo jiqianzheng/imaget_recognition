@@ -1,0 +1,30 @@
+<div class="col-md-6 panel-grids">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ name }}</h3>
+        </div>
+        <div class="panel-body">
+            <div class="media-left">
+                <a href="#">
+                    <img class="media-object" data-src="holder.js/64x64" src="{{ path }}" data-holder-rendered="true" style="width: 404px; height: 304px;">
+                </a>
+            </div>
+            <div class="media-body stats-info">
+                <div class="stats-body">
+                    <ul class="list-unstyled">
+                        {% for label, prob in probs.items %}
+
+                            <li>{{ label}}： <span class="">{{ prob }}</span>
+                                <div class="progress progress-striped progress-left">
+                                    <div class="bar green" style="width:{{ prob }}%;"></div>
+                                </div>
+                            </li>
+                        {% empty %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>

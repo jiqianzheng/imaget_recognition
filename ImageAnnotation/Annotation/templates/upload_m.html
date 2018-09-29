@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Charts</title>
+{% endblock %}
+
+{% block head %}
+    <!-- fileinput -->
+    <link href="/static/fileinput/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+    <script src="/static/fileinput/js/fileinput.js" type="text/javascript"></script>
+    <script src="/static/fileinput/js/zh.js" type="text/javascript"></script>
+    <!-- //fileinput -->
+    <script src="/static/treeview/js/bootstrap-treeview.js"></script>
+    <script src="/static/treeview/css/bootstrap-treeview.css"></script>
+{% endblock %}
+
+
+<!--
+{% block navigation %}
+	{% include "navigation.html" %}
+{% endblock %}-->
+
+{% block content %}
+            <div class="main-page signup-page">
+				<h3 class="title1">完整类别上传</h3>
+				<p class="creating">上传全部类别数据集，需要对文件进行压缩.</p>
+				<div class="sign-up-row widget-shadow">
+					<h5>数据集格式 :</h5>
+                    <div class="sign-u">
+                        <div class="well">
+                            这里您可以上传您自己的数据集，数据集格式如下：
+                            <div id="tree"></div>
+                            <div class="clearfix"></div>
+                            <p>请将数据按照上图结构组织完成，压缩后上传。</p>
+                            <p>只支持<strong style="color:red">.zip</strong>压缩格式</p>
+                            <p>务必注意根目录名为<strong style="color:red">ImagesDB</strong></p>
+                            <br />
+                            <div class="alert alert-danger" role="alert">
+                                注意，需要<strong>右键ImagesDB目录后</strong>选择添加到压缩文件。
+                            </div>
+                        </div>
+						<div class="clearfix"> </div>
+					</div>
+                    <h6>选择文件 :</h6>
+                    <div class="sign-u">
+                        <input type="file" id="exampleInputFile" class="file" name="image_file_zip" data-overwrite-initial="false" data-min-file-count="1">
+                        <div class="clearfix"> </div>
+                    </div>
+                </div>
+			</div>
+    <script>
+        $("#exampleInputFile").fileinput({
+            uploadUrl: "{% url 'upload_multiple' %}",
+            language: 'zh',
+            allowedFileExtensions: ['zip'],
+            dropZoneTitle: "拖拽文件到这里<br />只支持<strong style='color: red'>.zip格式</strong>单文件上传",
+            uploadExtraData: function () {
+                var data = {};
+                data.csrfmiddlewaretoken = "{{ csrf_token }}";
+                return data;
+            },
+            slugCallback: function(filename) {
+                return filename.replace('(', '_').replace(']', '_');
+            }
+        }).on("filepreupload", function (event, previewId, index, jqXHR) {
+            console.log("File pre ajax triggered. event: %o, previewId: %o, index: %o", event, previewId, index);
+        }).on("fileuploaded", function(event, data, previewId, index) {
+            console.log(data.response);
+        });
+        $(function () {
+            var tree = [{
+                text: "ImagesDB",
+                state: {
+                    selected: true
+                },
+                nodes: [{
+                    text: "类别一",
+                    nodes: [{
+                        text: "图片1.jpg"
+                    }, {
+                        text: "图片2.jpg"
+                    }]
+                }, {
+                    text: "类别二",
+                    nodes: [{
+                        text: "图片1.jpg"
+                    }, {
+                        text: "图片2.jpg"
+                    }]
+                }, {
+                    text: "……",
+                }, {
+                    text: "类别N",
+                    state: {
+                        expanded: true,
+                    },
+                    nodes: [{
+                        text: "图片1.jpg"
+                    }, {
+                        text: "图片2.jpg"
+                    }, {
+                        text: "……"
+                    }, {
+                        text: "图片n.jpg"
+                    }]
+                }]
+            }];
+            $('#tree').treeview({
+                data: tree,
+                color: "#4F52BA",
+            });
+        });
+    </script>
+{% endblock %}

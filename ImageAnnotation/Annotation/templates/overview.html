@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Charts</title>
+{% endblock %}
+
+{% block head %}
+<!-- chart -->
+<script src="/static/js/Chart.js"></script>
+<!-- //chart --> 
+{% endblock %}
+
+
+<!--
+{% block navigation %}
+	{% include "navigation.html" %}
+{% endblock %}-->
+
+{% block content %}
+			<div class="main-page charts-page" style="text-align: center">
+                <h3 class="title1">数据集类别分布情况</h3>
+                <div class="sign-up-row widget-shadow">
+                    <div class="row">
+                        <div class="col-md-2 grid_box1">
+                            <input type="text" class="form-control1" placeholder=".col-md-2" hidden>
+                        </div>
+                        <div class="col-md-8 grid_box1">
+                            <div class="charts">
+                                <div class="charts">
+                                    <h4 class="title">条形图</h4>
+                                    <canvas id="bar" height="300" width="400" style="width: 400px; height: 300px;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control1" placeholder=".col-md-2" hidden>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 grid_box1">
+                            <input type="text" class="form-control1" placeholder=".col-md-2" hidden>
+                        </div>
+                        <div class="col-md-8 grid_box1">
+                            <div class="charts">
+                                <div class="charts">
+                                    <h4 class="title">饼状图</h4>
+                                    <div class="pie-grid">
+                                        <canvas id="pie" height="300" width="400" style="width: 400px; height: 300px;"></canvas>
+                                    </div>
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control1" placeholder=".col-md-2" hidden>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+
+{#                        <div>#}
+{#                            {% for item in Labels %}#}
+{#                                {{  forloop.counter0 }}: "{{ item.label }}" {% if not forloop.last %},{% endif %}#}
+{#                            {% endfor %}#}
+{#                        </div>#}
+                </div>
+			</div>
+                    <script>
+                        $(function () {
+                            var barChartData = {
+                                labels: [
+                                    {% for item in Labels %}
+                                        "{{ item.label }}" {% if not forloop.last %},{% endif %}
+                                    {% endfor %}
+                                ],
+                                datasets : [
+                                    {
+                                        fillColor : "rgba(46, 169, 223, 0.83)",
+                                        strokeColor : "##2EA9DF",
+                                        highlightFill: "#ef553a",
+                                        data : [
+                                            {% for item in Labels %}
+                                                {{ item.num }}{% if not forloop.last %},{% endif %}
+                                            {% endfor %}
+                                        ]
+                                    }
+                                ]
+                            };
+                            new Chart(document.getElementById("bar").getContext("2d")).Bar(barChartData);
+                            var colors = ["#211E55", "#8B81C3", "#70649A", "#9B90C2", "#8A6BBE",
+                                "#6A4C9C", "#8F77B5", "#005CAF", "#58B2DC", "#78C2C4"];
+                            var pieData = [
+                                {% for item in Labels %}
+                                    {
+                                        value: {{ item.num }},
+                                        label: "{{ item.label }}",
+                                        color: colors[{{ forloop.counter0 }}]
+                                    } {% if not forloop.last %},{% endif %}
+                                {% endfor %}
+                            ];
+                            new Chart(document.getElementById("pie").getContext("2d")).Pie(pieData);
+                        });
+
+					</script>
+{% endblock %}

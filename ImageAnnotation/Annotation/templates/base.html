@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<!--<title>Home</title>-->
+{% block title %}
+{% endblock %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Novus Admin Panel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Bootstrap Core CSS -->
+<link href="/static/css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="/static/css/style.css" rel='stylesheet' type='text/css' />
+<!-- font CSS -->
+<!-- font-awesome icons -->
+<link href="/static/css/font-awesome.css" rel="stylesheet"> 
+<!-- //font-awesome icons -->
+ <!-- js-->
+<script src="/static/js/jquery-1.11.1.min.js"></script>
+<script src="/static/js/modernizr.custom.js"></script>
+<!--webfonts-->
+{#<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>#}
+<link rel="stylesheet" href="/static/fonts/Zd2E9abXLFGSr9G3YK2MsDAdhzWOYhqHvOZMRGaEyPo.woff2" rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/static/fonts/BP5K8ZAJv9qEbmuFp8RpJdbvlX87CS9_IgWvysdluIM.woff2" rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/static/fonts/b9QBgL0iMZfDSpmcXcE8nHm2hrkyco9jQ3NKMXpgOBg.woff2" rel='stylesheet' type='text/css'>
+<!--//webfonts--> 
+<!--animate-->
+<link href="/static/css/animate.css" rel="stylesheet" type="text/css" media="all">
+<script src="/static/js/wow.min.js"></script>
+	<script>
+		 new WOW().init();
+	</script>
+<!--//end-animate-->
+{% block head %}
+{% endblock %}
+<!-- Metis Menu -->
+<script src="/static/js/metisMenu.min.js"></script>
+<script src="/static/js/custom.js"></script>
+<link href="/static/css/custom.css" rel="stylesheet">
+<!--//Metis Menu -->
+<!-- 后台操作接口 -->
+<script src="/static/js/ServerUtils.js"></script>
+<!--//后台操作接口 -->
+</head> 
+<body class="cbp-spmenu-push">
+	<div class="main-content">
+		<!--left-fixed -navigation-->
+		<div class=" sidebar" role="navigation">
+            <div class="navbar-collapse">
+				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+					{% include "navigation.html" %}
+					<!-- //sidebar-collapse -->
+				</nav>
+			</div>
+		</div>
+		<!--left-fixed -navigation-->
+		<!-- header-starts -->
+		<div class="sticky-header header-section ">
+			<div class="header-left">
+				<!--toggle button start-->
+				<button id="showLeftPush"><i class="fa fa-bars"></i></button>
+				<!--toggle button end-->
+				<!--logo -->
+				<div class="logo">
+					<a href="{% url 'index' %}">
+						<h1>古代绘画图像分析引擎</h1>
+						<span>管理平台</span>
+					</a>
+				</div>
+				<!--//logo-->
+				<!--search-box-->
+				<div class="search-box">
+					<form class="input" id="searchForm"
+                          action="{% url 'search' %}"
+                          type="POST"
+                          onsubmit="return Search();" >
+
+                        {% csrf_token %}
+                        {% for field in SearchForm %}
+                            {{ field }}
+                        {% endfor %}
+					</form>
+				</div>
+				<!--//end-search-box-->
+				<div class="clearfix"> </div>
+			</div>
+			<div class="clearfix"> </div>	
+		</div>
+		<!-- //header-ends -->
+		<!-- main content start-->
+		<div id="page-wrapper">
+			{% block content %}{% endblock %}
+		</div>
+		<!--footer-->
+		{% include 'footer.html' %}
+        <!--//footer-->
+	</div>
+	<!-- Classie -->
+		<script src="/static/js/classie.js"></script>
+		<script>
+			var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+				showLeftPush = document.getElementById( 'showLeftPush' ),
+				body = document.body;
+				
+			showLeftPush.onclick = function() {
+				classie.toggle( this, 'active' );
+				classie.toggle( body, 'cbp-spmenu-push-toright' );
+				classie.toggle( menuLeft, 'cbp-spmenu-open' );
+				disableOther( 'showLeftPush' );
+			};
+			
+
+			function disableOther( button ) {
+				if( button !== 'showLeftPush' ) {
+					classie.toggle( showLeftPush, 'disabled' );
+				}
+			}
+			
+			function Search() {
+			    $.ajax({
+                    type: "POST",
+                    url: "{% url 'search' %}",
+                    data : $("#searchForm").serialize(),
+                    success: function(msg) {
+                        console.log(msg);
+                        if (msg.status == 0) {
+                            console.log(window.location.href);
+                            var url = window.location.href;
+                            var http = url.split(":")[0];
+                            var host = url.split(":")[1];
+                            var port = url.split(":")[2].split("/")[0];
+                            console.log("%o, %o, %o", http, host, port);
+                            window.location.href = http + ":" + host + ":" + port + "/gallery/" + msg.label;
+                        }
+                        else {
+                            bootbox.alert({
+                                title: "警告",
+                                message: "参数有错"
+                            });
+                        }
+                    }
+                });
+                return false;
+            }
+		</script>
+
+	<!--scrolling js-->
+	<script src="/static/js/jquery.nicescroll.js"></script>
+	<script src="/static/js/scripts.js"></script>
+	<!--//scrolling js-->
+	<!-- Bootstrap Core JavaScript -->
+    <script src="/static/js/bootstrap.js"> </script>
+    <!-- Bootbox -->
+    <script src="/static/js/bootbox.js"> </script>
+</body>
+</html>

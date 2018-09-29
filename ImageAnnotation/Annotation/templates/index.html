@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>Home</title>
+{% endblock %}
+
+{% block head %}
+    <script src="/static/js/responsiveslides.min.js"></script>
+{% endblock %}
+
+<!--
+{% block navigation %}
+	{% include "navigation.html" %}
+{% endblock %}-->
+
+{% block content %}
+    <div class="main-page signup-page">
+        <h3 class="title1">系统介绍</h3>
+        {#        <p class="creating">该功能为图像标注，可以选择标注示例图像和上传图像进行标注。</p>#}
+        <div class="sign-up-row widget-shadow">
+            <div class="banner">
+                <div class="slider">
+                    <div class="callbacks_container">
+                        <ul class="rslides" id="slider">
+                            <li>
+                                <h2>图像标注</h2>
+                                <h3>根据各自在图像信息中所反映的不同特征，把不同类别的目标区分开来的图像处理方法。</h3>
+                            </li>
+                            <li>
+                                <h2>神经网络</h2>
+                                <h3>一种模仿动物神经网络行为特征，进行分布式并行信息处理的算法数学模型。</h3>
+                            </li>
+                            <li>
+                                <h2>深度学习</h2>
+                                <h3>机器学习研究中的一个新的领域，模仿人脑的机制来解释数据，例如图像，声音和文本。</h3>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="row">
+                <h3 class="title1">技术简介</h3>
+                <div class="panel-info widget-shadow">
+                    <div class="col-md-6 panel-grids">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">图像标注</h3>
+                            </div>
+                            <div class="panel-body">
+                                图像标注，根据各自在图像信息中所反映的不同特征，把不同类别的目标区分开来的图像处理方法。它利用计算机对图像进行定量分析，把图像或图像中的每个像元或区域划归为若干个类别中的某一种，以代替人的视觉判读。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 panel-grids">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">深度学习</h3>
+                            </div>
+                            <div class="panel-body">
+                                深度学习是机器学习中一种基于对数据进行表征学习的方法。观测值（例如一幅图像）可以使用多种方式来表示，如每个像素强度值的向量，或者更抽象地表示成一系列边、特定形状的区域等。而使用某些特定的表示方法更容易从实例中学习任务（例如，人脸识别或面部表情识别）。深度学习的好处是用非监督式或半监督式的特征学习和分层特征提取高效算法来替代手工获取特征。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 panel-grids">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">TensorFlow</h3>
+                            </div>
+                            <div class="panel-body">
+                                TensorFlow是谷歌基于DistBelief进行研发的第二代人工智能学习系统，其命名来源于本身的运行原理。Tensor（张量）意味着N维数组，Flow（流）意味着基于数据流图的计算，TensorFlow为张量从流图的一端流动到另一端计算过程。TensorFlow是将复杂的数据结构传输至人工智能神经网中进行分析和处理过程的系统。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 panel-grids">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">神经网络</h3>
+                            </div>
+                            <div class="panel-body">
+                                人工神经网络（Artificial Neural Networks，简写为ANNs）也简称为神经网络（NNs）或称作连接模型（Connection Model），它是一种模仿动物神经网络行为特征，进行分布式并行信息处理的算法数学模型。这种网络依靠系统的复杂程度，通过调整内部大量节点之间相互连接的关系，从而达到处理信息的目的。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 panel-grids">
+                        <div class="panel panel-warning">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Redis</h3>
+                            </div>
+                            <div class="panel-body">
+                                Redis是一个key-value存储系统。和Memcached类似，它支持存储的value类型相对更多，包括string、list、set、zset和hash。这些数据类型都支持push/pop、add/remove及取交集并集和差集及更丰富的操作。为了保证效率，Redis数据都是缓存在内存中。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 panel-grids">
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Django</h3>
+                            </div>
+                            <div class="panel-body">
+                                Django是一个开放源代码的Web应用框架，由Python写成。其核心组件有：用于创建模型的对象关系映射；为最终用户设计的完美管理界面；一流的 URL 设计；设计者友好的模板语言；缓存系统。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+    <script>
+        $(function () {
+            $("#slider").responsiveSlides({
+                auto: true,
+                nav: false,
+                speed: 500,
+                namespace: "callbacks",
+                pager: true
+            });
+        });
+    </script>
+{% endblock %}

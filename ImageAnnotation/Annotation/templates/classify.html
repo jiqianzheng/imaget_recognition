@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Classify</title>
+{% endblock %}
+
+{% block head %}
+    <!-- fileinput -->
+    <script src="/static/fileinput/js/fileinput.js" type="text/javascript"></script>
+    <link href="/static/fileinput/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+    <script src="/static/fileinput/js/zh.js" type="text/javascript"></script>
+    <!-- //fileinput -->
+{% endblock %}
+
+
+<!--
+{% block navigation %}
+	{% include "navigation.html" %}
+{% endblock %}-->
+
+{% block content %}
+    <div class="main-page signup-page">
+        <h3 class="title1">标注</h3>
+        <p class="creating">该功能为图像标注，可以选择标注示例图像和上传图像进行标注。</p>
+        <div class="sign-up-row widget-shadow">
+            <h6>选择文件 :</h6>
+            <div class="sign-u">
+                <input type="file" id="exampleInputFile" class="file" name="image" multiple data-overwrite-initial="false" data-min-file-count="1">
+                <div class="clearfix"> </div>
+            </div>
+{#              <button type="submit" class="btn btn-primary" id="start-classify">开始标注</button>#}
+            <button type="submit" class="btn btn-primary" id="start-classify-v2">开始标注</button>
+        </div>
+        <div class="media" style="display: ;" id="classify-results-panel">
+            <h3 class="title1">标注结果</h3>
+            <div class="bs-example5 widget-shadow">
+                <div class="panel-info widget-shadow" id="classify-results-v2" style="max-height: 500px; overflow-y: auto">
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main-page general">
+
+    </div>
+    <script>
+        $("#exampleInputFile").fileinput({
+            uploadUrl: "{% url 'upload_classify' %}",
+            language: 'zh',
+            allowedFileExtensions: ['jpg', 'png','tif'],
+            uploadExtraData: function () {
+                var data = {};
+                data.csrfmiddlewaretoken = "{{ csrf_token }}";
+                return data;
+            },
+            slugCallback: function(filename) {
+                return filename.replace('(', '_').replace(']', '_');
+            }
+        }).on("filepreupload", function (event, previewId, index, jqXHR) {
+            console.log("File pre ajax triggered. event: %o, previewId: %o, index: %o", event, previewId, index);
+        }).on("fileuploaded", function(event, data, previewId, index) {
+            console.log(data.response);
+        });
+       $(document).ready(function () {
+            $("#start-classify").click(function (event) {
+                $("#classify-results-panel").show();
+                console.log(event);
+                startClassify("{% url 'process_classify' %}", "classify-results", "{{ csrf_token }}");
+            });
+            $("#start-classify-v2").click(function (event) {
+
+                images = [""]
+                $.each(images, function ( image) {
+                    startClassify1By1("{% url 'process_classify_1_by_1' %}", image, "classify-results-v2", "{{ csrf_token }}");
+                });
+
+            });
+        });
+    </script>
+{% endblock %}

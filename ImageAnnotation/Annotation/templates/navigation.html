@@ -1,0 +1,40 @@
+<ul class="nav" id="side-menu">
+    <!-- 原本的页面 -->
+
+    <li>
+        <a href="{% url 'index' %}"><i class="fa fa-home nav_icon"></i>首页</a>
+    </li>
+    <li>
+        <a href="#"><i class="fa fa-picture-o nav_icon"></i>图库浏览 <span class="fa arrow"></span></a>
+        <ul class="nav nav-second-level collapse" id = "gallery">
+            {% for item in Labels %}
+                <li>
+                    <a href="{% url 'gallery' item.label %}">{{ item.label }}</a> <span class="nav-badge">{{ item.num }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    </li>
+    <li>
+        <a href="{% url 'slider' %}"><i class="fa fa-film nav_icon"></i>轮播图</a>
+    </li>
+    <li>
+        <a href="#"><i class="fa fa-cogs nav_icon"></i>数据集管理 <span class="fa arrow"></span></a>
+        <ul class="nav nav-second-level collapse" id = "dataset">
+            <li>
+                <a href="{%  url 'overview' %}">数据集概览</a>
+            </li>
+            <li>
+                <a href="{% url 'upload' 'single' %}">单一类别上传</a>
+            </li>
+            <li>
+                <a href="{% url 'upload' 'multiple' %}">全部类别上传</a>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href="{% url 'classify' %}"><i class="fa fa-tag nav_icon"></i>图像标注</a>
+    </li>
+
+</ul>
+<script>
+</script>
