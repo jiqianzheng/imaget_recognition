@@ -32,7 +32,7 @@ templates :存放页面
 然后先在图像标注中上传,iu可以看到ssd识别的效果.上传多张以后可以把所有的小图都取出使用调用       训练相似模型,然后把quanshanshui_index6688替换掉
 
 下面百度云中的内容是图像物体识别的模型，下载下来放到checkpoints文件夹中即可
-链接:https://pan.baidu.com/s/1hXbUA6p2lFJKO-XbXd_FUw  密码:us6v
+链接:https://pan.baidu.com/s/12sweJHy5YFUgQIgeESp1BQ  密码:m2e7
 程序的界面大体如下：
 
 首页：
